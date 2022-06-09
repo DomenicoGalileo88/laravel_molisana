@@ -1,7 +1,70 @@
-//
-
 @use 'bootstrap';
+/* Color palette  */
+$molisana_dark: #000000;
+$molisana_primary: #002D75;
+$molisana_light: #848D9B;
+$molisana_secondary: #B3E5FC;
+$molisana_white: #FFFFFF;
 
-body {
-    background-color: aliceblue;
+#site_header {
+
+    background-color: $molisana_white;
+    text-align: center;
+    box-shadow: 0 0 5px $molisana_light;
+
+    .logo {
+        padding: 2rem 0;
+    }
+
+    nav {
+        a {
+            color: $molisana_dark;
+            font-weight: bold;
+
+            &:hover {
+                background-color: $molisana_secondary;
+            }
+        }
+
+    }
+}
+
+main {
+    background-image: url('../img/page_bg.jpg');
+
+    .product {
+        background: $molisana_white;
+        text-align: center;
+        color: $molisana_light;
+    }
+}
+
+#site_footer {
+    padding: 2rem 0;
+    background-image: url('../img/footer_bg.jpg');
+    background-position: bottom;
+    background-repeat: repeat-x;
+
+    h3 {
+        color: $molisana_light;
+
+    }
+
+
+    ul {
+        li {
+            line-height: 1.5rem;
+
+            a {
+                color: $molisana_light;
+                font-size: 0.9rem;
+                text-decoration: none;
+
+                &:hover {
+                        text-decoration: underline;
+                    }
+                }
+                }
+                }
+
 }

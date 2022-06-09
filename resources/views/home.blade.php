@@ -27,8 +27,10 @@
     <h2>Con forelse</h2>
 
     @forelse($posts as $post)
+
     <h3>{{$post}}</h3>
     @empty
+
     <p>Nothing to show </p>
 
     @endforelse

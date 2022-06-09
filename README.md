@@ -1,61 +1,154 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Laravel First steps
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+- installa laravel
+- avvia sever locale `php artisan serve` e `npm run watch`
+- installa dipendenze npm `npm i`
+- installa bootstrap `npm i bootstrap`
+- creazione layout
 
-## About Laravel
+## Creazine layout
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Copiare contenuto del file welcome.blade.php nel file /views/layouts/app.blade.php (da creare).
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Aggiungere dei segnaposto usando la direttiva blade `@yield('nome_del_segnaposto')`
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Il file sará inizialmente cosi:
 
-## Learning Laravel
+```html
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+    <title>Laravel</title>
 
-## Laravel Sponsors
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
 
-### Premium Partners
+</head>
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
+<body>
+    <header></header>
 
-## Contributing
+    <!-- Aggiungo segnaposto per il contenuto principale -->
+    <main>
+        @yield('content')
+    </main>
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+    <footer></footer>
 
-## Code of Conduct
+</body>
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+</html>
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```
 
-## License
+Aggingere assets css usando la funzione `asset()` di laravel.
+Dentro l'head aggiungere link
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```html
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
+    <!-- Se necessario aggiungere un'altro segnaposto per css customizzato per pagine -->
+    @yield('custom-css')
+```
+
+Aggiungi script al file js pubblico al layout, prima della chiusura del tag body.
+
+```html
+    <script src="{{asset('js/app.js')}}"></script>
+    <!-- Se necessario aggiungere un'altro segnaposto per js customizzato per pagine -->
+    @yield('script-footer')
+```
+
+Per aggiungere le immagini, creare cartella `img`` dentro `resources` e modificare file `webpack.mix.js` aggiungento questi metodi
+
+```js
+.copyDirectory('resources/img', 'public/img')
+.sass('resources/sass/aboutme.scss', 'public/css')
+    .options({
+        processCssUrls: false
+    });
+```  
+
+Il risultato sará:
+
+```js
+mix
+.js('resources/js/app.js', 'public/js')
+.copyDirectory('resources/img', 'public/img')
+.sass('resources/sass/app.scss', 'public/css')
+.options({
+    processCssUrls: false
+});
+```
+
+## Estendere il layout
+
+Per Estendere il layout creare prima delle views
+
+### crea rotta
+
+Ad esempio rotta news che punta alla view news
+
+```php
+Route::get('/news', function () {
+    return view('news');
+})->name('news');
+```
+
+### crea view abbinata alla rotta
+
+Dentro `resources/views/` crea file per la view chiamato ad esempio 
+`news.blade.php`
+
+ed estendi il layout `app`
+
+```php
+@extends('layouts.app')
+
+@section('content')
+<h1>My Blog</h1>
+@endsection
+
+```
+
+
+## Stampare dei dati salvandoli in un file di config.
+
+Creato nuovo file chiamato db.php dentro `/config`
+che restituisce un array associativa di dati.
+
+
+```php
+
+return [
+    'posts' => [
+        [],
+        [],
+    ],
+    'products' => [
+        [],
+        []
+    ]
+]
+
+```
+
+Per richiamare i dati contenuti in questo file si usa la funzione laravel `config('db.posts')` oppure `config('db.products')`
+I dati li salviamo in una variabile e li passiamo alla view dentro alla closure della rotta.
+
+Nel file web.php
+
+```php
+
+Route::get('/news', function () {
+    $posts = config('db.posts');
+    //dd($posts);
+    return view('news', compact('posts'));
+})->name('news');
+```

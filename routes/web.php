@@ -17,7 +17,14 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::get('/about', function () {
+Route::get('/news', function () {
+    $posts = config('db.posts');
+    //dd($posts);
+    return view('news', compact('posts'));
+})->name('news');
 
-    return view('about');
-})->name('about');
+Route::get('/products', function () {
+    $products = config('db.products');
+    //dd($products);
+    return view('products', compact('products'));
+})->name('products');
