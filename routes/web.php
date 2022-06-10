@@ -24,7 +24,49 @@ Route::get('/news', function () {
 })->name('news');
 
 Route::get('/products', function () {
-    $products = config('db.products');
+    $products_data = config('db.products');
     //dd($products);
-    return view('products', compact('products'));
-})->name('products');
+    /* Filtra le paste per tipo Versione con array Filter!
+    $paste_lunghe =  array_filter($products, function ($el) {
+        return $el['tipo'] === 'lunga';
+    });
+    $paste_corte =  array_filter($products, function ($el) {
+        return $el['tipo'] === 'corta';
+    });
+    $paste_cortissime =  array_filter($products, function ($el) {
+        return $el['tipo'] === 'cortissima';
+    });*/
+
+    /* Filtra le paste per tipo usando una collection */
+    $products_collection = collect($products_data);
+    $lunghe = $products_collection->where('tipo', 'lunga');
+    $corte = $products_collection->where('tipo', 'corta');
+    $cortissime = $products_collection->where('tipo', 'cortissima');
+
+    //dd($lunghe, $corte, $cortissime);
+
+    //dd($paste_lunghe, $paste_corte, $paste_cortissime);
+
+    $products = [
+        'lunghe' => $lunghe,
+        'corte' => $corte,
+        'cortissime' => $cortissime
+    ];
+
+    return view('products.index', compact('products'));
+})->name('products.index');
+
+
+Route::get('/products/{id}', function ($id) {
+    $products = config('db.products');
+    //dd(count($products));
+    if ($id >= 0 && is_numeric($id) && $id < count($products)) {
+        //dd($id);
+        //dd($products[$id]);
+        $pasta = $products[$id];
+        return view('products.show', compact('pasta'));
+    } else {
+        //dd('Abort! 404');
+        abort(404);
+    }
+})->name('products.show');

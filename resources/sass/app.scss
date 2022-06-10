@@ -6,6 +6,7 @@ $molisana_light: #848D9B;
 $molisana_secondary: #B3E5FC;
 $molisana_white: #FFFFFF;
 
+
 #site_header {
 
     background-color: $molisana_white;
@@ -21,7 +22,8 @@ $molisana_white: #FFFFFF;
             color: $molisana_dark;
             font-weight: bold;
 
-            &:hover {
+            &:hover,
+                &.active {
                 background-color: $molisana_secondary;
             }
         }
@@ -30,7 +32,9 @@ $molisana_white: #FFFFFF;
 }
 
 main {
-    background-image: url('../img/page_bg.jpg');
+    .products {
+            background-image: url('../img/page_bg.jpg');
+        }
 
     .product {
         background: $molisana_white;
@@ -61,10 +65,10 @@ main {
                 text-decoration: none;
 
                 &:hover {
-                        text-decoration: underline;
+                    text-decoration: underline;
                     }
-                }
-                }
-                }
+                                                                                                                                                                }
+                                                                                                                                                                }
+                                                                                                                                                                }
 
 }

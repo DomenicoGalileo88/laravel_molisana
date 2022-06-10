@@ -10236,11 +10236,11 @@ textarea.form-control-lg {
   color: #000000;
   font-weight: bold;
 }
-#site_header nav a:hover {
+#site_header nav a:hover, #site_header nav a.active {
   background-color: #B3E5FC;
 }
 
-main {
+main .products {
   background-image: url("../img/page_bg.jpg");
 }
 main .product {
