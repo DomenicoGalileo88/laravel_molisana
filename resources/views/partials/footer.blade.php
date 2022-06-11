@@ -4,7 +4,7 @@
             <div class="col">
                 @include('partials.logo')
                 <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum iure excepturi error ducimus quibusdam iste cumque exercitationem natus odit porro, necessitatibus vel tenetur fugit, rerum, incidunt quam. Eum, ut blanditiis.30
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum iure excepturi error ducimus quibusdam iste cumque exercitationem natus odit porro, necessitatibus vel tenetur fugit, rerum, incidunt quam. Eum, ut blanditiis.
                 </p>
             </div>
             <div class="col">
